@@ -1,6 +1,7 @@
 # CSCI E-15 Project 2
 
 [Visit Site](http://p2.scottpullen.me)
+
 [Demo](http://)
 
 ## Description

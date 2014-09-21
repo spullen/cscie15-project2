@@ -5,7 +5,7 @@
 [Demo](http://)
 
 ## Description
-This application generates a password. The password is built using ordinary words (no l337 speak) and some simple options. The generated password is easy to remember, but is hard for a computer to crack. The idea comes from [xkcd](http://xkcd.com/936/).
+This application generates a password. The password is built using ordinary words (no l337 speak) along with some configurations on the output. The generated password is easy to remember, but is hard for a computer to crack. The idea comes from [xkcd](http://xkcd.com/936/).
 
 ## Resources
 - [jQuery](http://jquery.com)

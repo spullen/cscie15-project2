@@ -33,7 +33,8 @@
 
   $errors = array();
 
-  $words = array();
+  $words = array('apple', 'banana', 'cat', 'dog', 'duck', 'horse', 'house', 'car', 'vehicle', 'blue', 'red', 'organge', 'station', 
+                 'computer', 'programmer', 'develop', 'software', 'staple', 'battery', 'water', 'correct', 'wrong', 'right', 'space');
 
   $separators = array(
     'none' => '',
@@ -44,10 +45,11 @@
   );
 
   $specialCharacters = '!@#$%&';
+  $specialCharactersLength = strlen($specialCharacters);
 
-  $result = '';
+  $password = array();
 
-  $numberOfWords = 3;
+  $numberOfWords = 2;
   $separator = '';
   $includeNumber = false;
   $includeSpecialCharacter = false;
@@ -59,14 +61,14 @@
     if(isset($_POST['number_of_words'])) {
       $numberOfWords = $_POST['number_of_words'];
       if(!is_numeric($numberOfWords)) {
-        $errors['number_of_words'] = 'must be a valid number between 3 and 10.';
+        $errors['number_of_words'] = 'must be a valid number between 2 and 10.';
       } else {
-        if($numberOfWords < 3 || $numberOfWords > 10) {
-          $errors['number_of_words'] = 'must be between 3 and 10.';
+        if($numberOfWords < 2 || $numberOfWords > 10) {
+          $errors['number_of_words'] = 'must be between 2 and 10.';
         }
       }
     } else {
-      $errors['number_of_words'] = 'must be a valid number between 3 and 10.';
+      $errors['number_of_words'] = 'must be a valid number between 2 and 10.';
     }
 
     // Separator
@@ -91,6 +93,39 @@
     if(isset($_POST['camel_case']))
       $camelCase = true;
   }
+
+  if(count($errors) == 0) {
+    // select random subset of words
+    for($i = 0; $i < $numberOfWords; $i++) {
+      $wordAt = rand(0, count($words) - 1);
+      echo 'Word count: ' . count($words) . ', word at: ' . $wordAt . '<br>';
+      $word = $words[$wordAt];
+      array_push($password, $word);
+      unset($words[$wordAt]);
+    }
+
+    // camel case rest of words in password if option selected
+    for($i = 1; $i < count($password); $i++) {
+      $password[$i] = ucfirst($password[$i]);
+    }
+
+    $password = join($password, $separator);
+
+    if($upperCaseFirstLetter) {
+      $password = ucfirst($password);
+    }
+
+    if($includeNumber)
+      $password = $password . rand(0, 9);
+
+    if($includeSpecialCharacter) {
+      $characterAt = rand(0, ($specialCharactersLength - 1));
+      $password = $password . substr($specialCharacters, $characterAt, 1);
+    }
+
+  } else {
+    $password = '';
+  }
 ?>
 <div class="container">
   <div class="row">
@@ -102,14 +137,14 @@
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="center">
-        <h2 id="result"><?php echo $result; ?></h2>
+        <h2 id="result"><?php echo $password; ?></h2>
       </div>
       <br>
       <form class="form-horizontal" role="form" method="post">
         <div class="form-group <?php displayErrorClass($errors, 'number_of_words'); ?>">
           <label for="number_of_words" class="col-md-2 col-sm-2 control-label">Number of words:</label>
           <div class="col-md-2 col-sm-2">
-            <input type="number" class="form-control" min="3" max="10" name="number_of_words" value="<?php echo $numberOfWords; ?>">
+            <input type="number" class="form-control" min="2" max="10" name="number_of_words" value="<?php echo $numberOfWords; ?>">
           </div>
           <div class="col-md-6 col-sm-6">
             <?php displayErrorMessage($errors, 'number_of_words'); ?>

@@ -10,6 +10,22 @@
   <link rel="stylesheet" media="screen" href="css/application.css">
 </head>
 <body>
+<?php
+  $numberOfWords = 3;
+  $wordSeparator = '';
+  $includeNumber = false;
+  $includeSpecialCharacter = false;
+  $upperCaseFirstLetter = false;
+  $camelCase = false;
+
+  $separators = array(
+    'none' => '',
+    'hyphen' => '-',
+    'underscore' => '_',
+    'dot' => '.',
+    'pound' => '#'
+  );
+?>
 <div class="container">
   <div class="row">
     <div class="center">
@@ -23,22 +39,26 @@
         <h2 id="result">SDSDSDSDSD</h2>
       </div>
       <br>
-      <form class="form-horizontal" role="form">
+      <form class="form-horizontal" role="form" method="post">
         <div class="form-group">
           <label for="number_of_words" class="col-md-2 col-sm-2 control-label">Number of words:</label>
           <div class="col-md-6 col-sm-6">
-            <input type="number" class="form-control" min="4" name="number_of_words">
+            <input type="number" class="form-control" min="3" name="number_of_words" value="<?php echo $numberOfWords; ?>">
           </div>
         </div>
         <div class="form-group">
           <label for="separator" class="col-md-2 col-sm-2 control-label">Word separator:</label>
           <div class="col-md-6 col-sm-6">
             <select class="form-control" name="separator">
-              <option value="">None</option>
-              <option value="-">hypen -</option>
-              <option value="_">underscore _</option>
-              <option value=".">dot .</option>
-              <option value="#">pound #</option>
+              <?php
+                foreach($separators as $separatorName => $separatorValue) {
+                ?>
+                  <option value="<?php echo $separatorValue; ?>" <?php if($wordSeparator === $separatorValue) { echo 'selected="selected"'; } ?>>
+                    <?php echo ucfirst($separatorName) . ' ' . $separatorValue; ?>
+                  </option>
+                <?php
+                }
+              ?>
             </select>
           </div>
         </div>
@@ -46,7 +66,7 @@
           <div class="col-md-offset-2 col-md-6 col-sm-offset-2 col-sm-6">
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="include_number"> Include number?
+                <input type="checkbox" name="include_number" <?php if($includeNumber) { echo 'checked="checked"'; } ?>> Include number?
               </label>
             </div>
           </div>
@@ -55,8 +75,8 @@
           <div class="col-md-offset-2 col-md-6 col-sm-offset-2 col-sm-6">
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="include_special_character"> Include special character?
-                <span class="help-block">Special characters !@#$%&</span>
+                <input type="checkbox" name="include_special_character" <?php if($includeSpecialCharacter) { echo 'checked="checked"'; } ?>> Include special character?
+                <span class="help-block">Special characters: !@#$%&</span>
               </label>
             </div>
           </div>
@@ -65,7 +85,7 @@
           <div class="col-md-offset-2 col-md-6 col-sm-offset-2 col-sm-6">
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="upper_case_first_letter"> Upper case first letter?
+                <input type="checkbox" name="upper_case_first_letter" <?php if($upperCaseFirstLetter) { echo 'checked="checked"'; } ?>> Upper case first letter?
               </label>
             </div>
           </div>
@@ -74,7 +94,7 @@
           <div class="col-md-offset-2 col-md-6 col-sm-offset-2 col-sm-6">
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="camel_case"> Camel case?
+                <input type="checkbox" name="camel_case" <?php if($camelCase) { echo 'checked="checked"'; } ?>> Camel case?
               </label>
             </div>
           </div>

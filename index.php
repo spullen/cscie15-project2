@@ -12,16 +12,17 @@
 <body>
 <div class="container">
   <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-      <p>
-        This application generates a password. The password is built using ordinary words (no l337 speak) 
-        along with some configurations on the output. The generated password is easy to remember, but is 
-        hard for a computer to crack. The idea comes from <a href="http://xkcd.com/936/" target="_blank">xkcd</a>.
-      </p>
+    <div class="center">
+      <h1>Password Generator</h1>
     </div>
+    <hr>
   </div>
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="center">
+        <h2 id="result">SDSDSDSDSD</h2>
+      </div>
+      <br>
       <form class="form-horizontal" role="form">
         <div class="form-group">
           <label for="number_of_words" class="col-md-2 col-sm-2 control-label">Number of words:</label>
@@ -84,6 +85,18 @@
           </div>
         </div>
       </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <p>
+        This application generates a password. The password is built using ordinary words (no l337 speak) 
+        along with some configurations on the output. The generated password is easy to remember, but is 
+        hard for a computer to crack. The idea comes from <a href="http://xkcd.com/936/" target="_blank">xkcd</a>.
+      </p>
+      <div class="col-md-offset-2">
+        <a href="http://xkcd.com/936/" target="_blank"><img src="http://imgs.xkcd.com/comics/password_strength.png"><a>
+      </div>
     </div>
   </div>
 </div>

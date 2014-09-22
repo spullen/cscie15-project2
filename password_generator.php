@@ -19,17 +19,10 @@ class PasswordGenerator {
     if(isset($params['separator']))
       $this->separator = $params['separator'];
 
-    if(isset($params['include_number']))
-      $this->includeNumber = true;
-
-    if(isset($params['include_special_character']))
-      $this->includeSpecialCharacter = true;
-
-    if(isset($params['upper_case_first_letter']))
-      $this->upperCaseFirstLetter = true;
-
-    if(isset($params['camel_case']))
-      $this->camelCase = true;
+    $this->includeNumber = isset($params['include_number']) && $params['include_number'];
+    $this->includeSpecialCharacter = isset($params['include_special_character']) && $params['include_special_character'];
+    $this->upperCaseFirstLetter = isset($params['upper_case_first_letter']) && $params['upper_case_first_letter'];
+    $this->camelCase = isset($params['camel_case']) && $params['camel_case'];
   }
 
   public function isValid() {

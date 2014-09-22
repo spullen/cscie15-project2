@@ -13,22 +13,22 @@ class PasswordGenerator {
   public $camelCase = false;
 
   public function __construct($params) {
-    if(isset($_POST['number_of_words']))
-      $this->numberOfWords = $_POST['number_of_words'];
+    if(isset($params['number_of_words']))
+      $this->numberOfWords = $params['number_of_words'];
 
-    if(isset($_POST['separator']))
-      $this->separator = $_POST['separator'];
+    if(isset($params['separator']))
+      $this->separator = $params['separator'];
 
-    if(isset($_POST['include_number']))
+    if(isset($params['include_number']))
       $this->includeNumber = true;
 
-    if(isset($_POST['include_special_character']))
+    if(isset($params['include_special_character']))
       $this->includeSpecialCharacter = true;
 
-    if(isset($_POST['upper_case_first_letter']))
+    if(isset($params['upper_case_first_letter']))
       $this->upperCaseFirstLetter = true;
 
-    if(isset($_POST['camel_case']))
+    if(isset($params['camel_case']))
       $this->camelCase = true;
   }
 

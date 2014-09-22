@@ -33,7 +33,7 @@
 
   $errors = array();
 
-  $words = array('apple', 'banana', 'cat', 'dog', 'duck', 'horse', 'house', 'car', 'vehicle', 'blue', 'red', 'organge', 'station', 
+  $words = array('apple', 'banana', 'cat', 'dog', 'duck', 'horse', 'house', 'car', 'vehicle', 'blue', 'red', 'orange', 'station', 
                  'computer', 'programmer', 'develop', 'software', 'staple', 'battery', 'water', 'correct', 'wrong', 'right', 'space');
 
   $separators = array(

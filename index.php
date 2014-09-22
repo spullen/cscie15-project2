@@ -97,11 +97,9 @@
   if(count($errors) == 0) {
     // select random subset of words
     for($i = 0; $i < $numberOfWords; $i++) {
-      $wordAt = rand(0, count($words) - 1);
-      echo 'Word count: ' . count($words) . ', word at: ' . $wordAt . '<br>';
-      $word = $words[$wordAt];
-      array_push($password, $word);
-      unset($words[$wordAt]);
+      $word = array_rand($words);
+      array_push($password, $words[$word]);
+      unset($words[$word]);
     }
 
     // camel case rest of words in password if option selected

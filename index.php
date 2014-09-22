@@ -105,8 +105,10 @@
     }
 
     // camel case rest of words in password if option selected
-    for($i = 1; $i < count($password); $i++) {
-      $password[$i] = ucfirst($password[$i]);
+    if($camelCase) {
+      for($i = 1; $i < count($password); $i++) {
+        $password[$i] = ucfirst($password[$i]);
+      }
     }
 
     $password = join($password, $separator);

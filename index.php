@@ -52,11 +52,11 @@
         <h2 id="result"><?php echo $password; ?></h2>
       </div>
       <br>
-      <form class="form-horizontal" role="form" method="post">
+      <form id="password-config" class="form-horizontal" role="form" method="post">
         <div class="form-group <?php displayErrorClass($pg->errors, 'number_of_words'); ?>">
           <label for="number_of_words" class="col-md-2 col-sm-2 control-label">Number of words:</label>
           <div class="col-md-2 col-sm-2">
-            <input type="number" class="form-control" min="2" max="10" name="number_of_words" value="<?php echo $pg->numberOfWords; ?>">
+            <input type="number" class="form-control" min="2" max="10" id="number_of_words" name="number_of_words" value="<?php echo $pg->numberOfWords; ?>">
           </div>
           <div class="col-md-6 col-sm-6">
             <?php displayErrorMessage($pg->errors, 'number_of_words'); ?>
@@ -65,7 +65,7 @@
         <div class="form-group <?php displayErrorClass($pg->errors, 'separator'); ?>">
           <label for="separator" class="col-md-2 col-sm-2 control-label">Word separator:</label>
           <div class="col-md-2 col-sm-2">
-            <select class="form-control" name="separator">
+            <select class="form-control" id="separator" name="separator">
               <?php
                 foreach(PasswordGenerator::separators() as $separatorName => $separatorValue) {
                 ?>
@@ -85,7 +85,7 @@
           <div class="col-md-offset-2 col-md-6 col-sm-offset-2 col-sm-6">
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="include_number" <?php displayChecked($pg->includeNumber); ?>> Include number?
+                <input type="checkbox" id="include_number" name="include_number" <?php displayChecked($pg->includeNumber); ?>> Include number?
               </label>
             </div>
           </div>
@@ -94,7 +94,7 @@
           <div class="col-md-offset-2 col-md-6 col-sm-offset-2 col-sm-6">
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="include_special_character" <?php displayChecked($pg->includeSpecialCharacter); ?>> Include special character?
+                <input type="checkbox" id="include_special_character" name="include_special_character" <?php displayChecked($pg->includeSpecialCharacter); ?>> Include special character?
                 <span class="help-block">Special characters: !@#$%&</span>
               </label>
             </div>
@@ -104,7 +104,7 @@
           <div class="col-md-offset-2 col-md-6 col-sm-offset-2 col-sm-6">
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="upper_case_first_letter" <?php displayChecked($pg->upperCaseFirstLetter); ?>> Upper case first letter?
+                <input type="checkbox" id="upper_case_first_letter" name="upper_case_first_letter" <?php displayChecked($pg->upperCaseFirstLetter); ?>> Upper case first letter?
               </label>
             </div>
           </div>
@@ -113,7 +113,7 @@
           <div class="col-md-offset-2 col-md-6 col-sm-offset-2 col-sm-6">
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="camel_case" <?php displayChecked($pg->camelCase); ?>> Camel case?
+                <input type="checkbox" id="camel_case" name="camel_case" <?php displayChecked($pg->camelCase); ?>> Camel case?
               </label>
             </div>
           </div>

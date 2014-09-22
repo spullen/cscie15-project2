@@ -8,8 +8,10 @@
 
   header('Content-Type: application/json');
   if($pg->isValid()) {
+    http_response_code();
     echo json_encode($pg->generate());
   } else {
+    http_response_code(422);
     echo json_encode($pg->errors);
   }
 ?>

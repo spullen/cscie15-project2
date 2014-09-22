@@ -1,3 +1,4 @@
+<?php require 'password_generator.php'; ?>
 <!doctype html>
 <html>
 <head lang="en">
@@ -31,100 +32,11 @@
       echo 'selected="selected"';
   }
 
-  $errors = array();
+  $password = '';
+  $pg = new PasswordGenerator($_POST);
 
-  $words = array('apple', 'banana', 'cat', 'dog', 'duck', 'horse', 'house', 'car', 'vehicle', 'blue', 'red', 'orange', 'station', 
-                 'computer', 'programmer', 'develop', 'software', 'staple', 'battery', 'water', 'correct', 'wrong', 'right', 'space');
-
-  $separators = array(
-    'none' => '',
-    'hyphen' => '-',
-    'underscore' => '_',
-    'dot' => '.',
-    'pound' => '#'
-  );
-
-  $specialCharacters = '!@#$%&';
-  $specialCharactersLength = strlen($specialCharacters);
-
-  $password = array();
-
-  $numberOfWords = 2;
-  $separator = '';
-  $includeNumber = false;
-  $includeSpecialCharacter = false;
-  $upperCaseFirstLetter = false;
-  $camelCase = false;
-
-  if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Number of words
-    if(isset($_POST['number_of_words'])) {
-      $numberOfWords = $_POST['number_of_words'];
-      if(!is_numeric($numberOfWords)) {
-        $errors['number_of_words'] = 'must be a valid number between 2 and 10.';
-      } else {
-        if($numberOfWords < 2 || $numberOfWords > 10) {
-          $errors['number_of_words'] = 'must be between 2 and 10.';
-        }
-      }
-    } else {
-      $errors['number_of_words'] = 'must be a valid number between 2 and 10.';
-    }
-
-    // Separator
-    if(isset($_POST['separator'])) {
-      $separator = $_POST['separator'];
-      // just in case someone tries to enter their own value
-      if(!in_array($separator, $separators, true)){
-        $errors['separator'] = 'must be a valid separator (-_.#).';
-        $separator = ''; // reset
-      }
-    }
-
-    if(isset($_POST['include_number']))
-      $includeNumber = true;
-
-    if(isset($_POST['include_special_character']))
-      $includeSpecialCharacter = true;
-
-    if(isset($_POST['upper_case_first_letter']))
-      $upperCaseFirstLetter = true;
-
-    if(isset($_POST['camel_case']))
-      $camelCase = true;
-  }
-
-  if(count($errors) == 0) {
-    // select random subset of words
-    for($i = 0; $i < $numberOfWords; $i++) {
-      $word = array_rand($words);
-      array_push($password, $words[$word]);
-      unset($words[$word]);
-    }
-
-    // camel case rest of words in password if option selected
-    if($camelCase) {
-      for($i = 1; $i < count($password); $i++) {
-        $password[$i] = ucfirst($password[$i]);
-      }
-    }
-
-    $password = join($password, $separator);
-
-    if($upperCaseFirstLetter) {
-      $password = ucfirst($password);
-    }
-
-    if($includeNumber)
-      $password = $password . rand(0, 9);
-
-    if($includeSpecialCharacter) {
-      $characterAt = rand(0, ($specialCharactersLength - 1));
-      $password = $password . substr($specialCharacters, $characterAt, 1);
-    }
-
-  } else {
-    $password = '';
+  if($pg->isValid()) {
+    $password = $pg->generate();
   }
 ?>
 <div class="container">
@@ -141,23 +53,23 @@
       </div>
       <br>
       <form class="form-horizontal" role="form" method="post">
-        <div class="form-group <?php displayErrorClass($errors, 'number_of_words'); ?>">
+        <div class="form-group <?php displayErrorClass($pg->errors, 'number_of_words'); ?>">
           <label for="number_of_words" class="col-md-2 col-sm-2 control-label">Number of words:</label>
           <div class="col-md-2 col-sm-2">
-            <input type="number" class="form-control" min="2" max="10" name="number_of_words" value="<?php echo $numberOfWords; ?>">
+            <input type="number" class="form-control" min="2" max="10" name="number_of_words" value="<?php echo $pg->numberOfWords; ?>">
           </div>
           <div class="col-md-6 col-sm-6">
-            <?php displayErrorMessage($errors, 'number_of_words'); ?>
+            <?php displayErrorMessage($pg->errors, 'number_of_words'); ?>
           </div>
         </div>
-        <div class="form-group <?php displayErrorClass($errors, 'separator'); ?>">
+        <div class="form-group <?php displayErrorClass($pg->errors, 'separator'); ?>">
           <label for="separator" class="col-md-2 col-sm-2 control-label">Word separator:</label>
           <div class="col-md-2 col-sm-2">
             <select class="form-control" name="separator">
               <?php
-                foreach($separators as $separatorName => $separatorValue) {
+                foreach(PasswordGenerator::separators() as $separatorName => $separatorValue) {
                 ?>
-                  <option value="<?php echo $separatorValue; ?>" <?php displaySelected($separator, $separatorValue); ?>>
+                  <option value="<?php echo $separatorValue; ?>" <?php displaySelected($pg->separator, $separatorValue); ?>>
                     <?php echo ucfirst($separatorName) . ' ' . $separatorValue; ?>
                   </option>
                 <?php
@@ -166,14 +78,14 @@
             </select>
           </div>
           <div class="col-md-6 col-sm-6">
-            <?php displayErrorMessage($errors, 'separator'); ?>
+            <?php displayErrorMessage($pg->errors, 'separator'); ?>
           </div>
         </div>
         <div class="form-group">
           <div class="col-md-offset-2 col-md-6 col-sm-offset-2 col-sm-6">
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="include_number" <?php displayChecked($includeNumber); ?>> Include number?
+                <input type="checkbox" name="include_number" <?php displayChecked($pg->includeNumber); ?>> Include number?
               </label>
             </div>
           </div>
@@ -182,7 +94,7 @@
           <div class="col-md-offset-2 col-md-6 col-sm-offset-2 col-sm-6">
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="include_special_character" <?php displayChecked($includeSpecialCharacter); ?>> Include special character?
+                <input type="checkbox" name="include_special_character" <?php displayChecked($pg->includeSpecialCharacter); ?>> Include special character?
                 <span class="help-block">Special characters: !@#$%&</span>
               </label>
             </div>
@@ -192,7 +104,7 @@
           <div class="col-md-offset-2 col-md-6 col-sm-offset-2 col-sm-6">
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="upper_case_first_letter" <?php displayChecked($upperCaseFirstLetter); ?>> Upper case first letter?
+                <input type="checkbox" name="upper_case_first_letter" <?php displayChecked($pg->upperCaseFirstLetter); ?>> Upper case first letter?
               </label>
             </div>
           </div>
@@ -201,7 +113,7 @@
           <div class="col-md-offset-2 col-md-6 col-sm-offset-2 col-sm-6">
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="camel_case" <?php displayChecked($camelCase); ?>> Camel case?
+                <input type="checkbox" name="camel_case" <?php displayChecked($pg->camelCase); ?>> Camel case?
               </label>
             </div>
           </div>

@@ -10,4 +10,5 @@ This application generates a password. The password is built using ordinary word
 ## Resources
 - [jQuery](http://jquery.com)
 - [Bootstrap](http://getbootstrap.com)
-- spinner image [spiffygif.com/](http://spiffygif.com/)
+- [spinner image](http://spiffygif.com/)
+- [word list](https://github.com/first20hours/google-10000-english) (filter words < 3 characters)

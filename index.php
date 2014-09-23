@@ -58,7 +58,7 @@
           <div class="col-md-2 col-sm-2">
             <input type="number" class="form-control" min="2" max="10" id="number_of_words" name="number_of_words" value="<?php echo $pg->numberOfWords; ?>">
           </div>
-          <div class="col-md-6 col-sm-6">
+          <div class="col-md-6 col-sm-6 error-container">
             <?php displayErrorMessage($pg->errors, 'number_of_words'); ?>
           </div>
         </div>
@@ -77,7 +77,7 @@
               ?>
             </select>
           </div>
-          <div class="col-md-6 col-sm-6">
+          <div class="col-md-6 col-sm-6 error-container">
             <?php displayErrorMessage($pg->errors, 'separator'); ?>
           </div>
         </div>

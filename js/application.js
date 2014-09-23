@@ -12,6 +12,11 @@ $(function() {
     e.preventDefault();
 
     var $self = $(this);
+
+    // remove any errors
+    $self.find('.has-error').removeClass('has-error');
+    $self.find('.error-container').empty();
+
     var data = {
       number_of_words: $numberOfWords.val(),
       separator: $separator.val(),
@@ -32,7 +37,12 @@ $(function() {
       $resultEl.text(resp);
     }).
     fail(function(resp) {
-      console.log(resp);
+      $.each(resp.responseJSON, function(id, error) {
+        var $el = $('#' + id);
+        var $formGroup = $el.parents('div.form-group');
+        $formGroup.addClass('has-error');
+        $formGroup.find('.error-container').html('<span class="help-block">' + error + '</span>');
+      });
     });
   });
 });

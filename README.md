@@ -10,3 +10,4 @@ This application generates a password. The password is built using ordinary word
 ## Resources
 - [jQuery](http://jquery.com)
 - [Bootstrap](http://getbootstrap.com)
+- spinner image [spiffygif.com/](http://spiffygif.com/)

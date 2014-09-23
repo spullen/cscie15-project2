@@ -120,7 +120,7 @@
         </div>
         <div class="form-group">
           <div class="col-md-offset-2 col-md-6 col-sm-offset-2 col-sm-6">
-            <input type="submit" value="Generate" class="btn btn-primary">
+            <input type="submit" value="Generate" class="btn btn-primary"> <span id="loading-spinner" style="display: none;"><img src="img/spinner.gif"></span>
           </div>
         </div>
       </form>

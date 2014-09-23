@@ -1,4 +1,10 @@
 $(function() {
+  var $loadingSpinner = $('#loading-spinner').hide();
+
+  $(document).
+    ajaxStart(function() { $loadingSpinner.show() }).
+    ajaxStop(function() { $loadingSpinner.hide() });
+
   var $resultEl = $('#result');
 
   var $numberOfWords = $('#number_of_words');

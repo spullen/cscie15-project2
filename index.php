@@ -56,7 +56,7 @@
         <div class="form-group <?php displayErrorClass($pg->errors, 'number_of_words'); ?>">
           <label for="number_of_words" class="col-md-2 col-sm-2 control-label">Number of words:</label>
           <div class="col-md-2 col-sm-2">
-            <input type="number" class="form-control" min="2" max="10" id="number_of_words" name="number_of_words" value="<?php echo $pg->numberOfWords; ?>">
+            <input type="number" class="form-control" min="<?php echo PasswordGenerator::minNumberOfWords ?>" max="<?php echo PasswordGenerator::maxNumberOfWords ?>" id="number_of_words" name="number_of_words" value="<?php echo $pg->numberOfWords; ?>">
           </div>
           <div class="col-md-6 col-sm-6 error-container">
             <?php displayErrorMessage($pg->errors, 'number_of_words'); ?>

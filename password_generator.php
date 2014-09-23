@@ -1,11 +1,13 @@
 <?php
 class PasswordGenerator {
+  const minNumberOfWords = 3;
+  const maxNumberOfWords = 6;
   const specialCharacters = '!@#$%&';
 
   public $errors = array();
   public $words = array('apple', 'banana', 'cat', 'dog', 'duck', 'horse', 'house', 'car', 'vehicle', 'blue', 'red', 'orange', 'station', 
                         'computer', 'programmer', 'develop', 'software', 'staple', 'battery', 'water', 'correct', 'wrong', 'right', 'space');
-  public $numberOfWords = 2;
+  public $numberOfWords = 3;
   public $separator = '';
   public $includeNumber = false;
   public $includeSpecialCharacter = false;
@@ -27,10 +29,10 @@ class PasswordGenerator {
 
   public function isValid() {
     if(!is_numeric($this->numberOfWords)) {
-      $this->errors['number_of_words'] = 'must be a valid number between 2 and 10.';
+      $this->errors['number_of_words'] = 'must be a valid number between ' . self::minNumberOfWords . ' and ' . self::maxNumberOfWords .  '.';
     } else {
-      if($this->numberOfWords < 2 || $this->numberOfWords > 10) {
-        $this->errors['number_of_words'] = 'must be between 2 and 10.';
+      if($this->numberOfWords < self::minNumberOfWords || $this->numberOfWords > self::maxNumberOfWords) {
+        $this->errors['number_of_words'] = 'must be between ' . self::minNumberOfWords . ' and ' . self::maxNumberOfWords .  '.';
       }
     }
 

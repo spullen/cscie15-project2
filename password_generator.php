@@ -79,10 +79,19 @@ class PasswordGenerator {
   }
 
   private function getWords() {
-    // get the words
-    $words = explode("\n", file_get_contents('https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english.txt'));
-    // filter any word less than 3 characters
-    $words = array_filter($words, function($w) { return strlen($w) >= 3; });
+    $words = array();
+    if(file_exists('words.txt')) {
+      $words = explode("\n", file_get_contents('words.txt'));
+    } else {
+      // if the words.txt does not exist locally, scrape the words from the web and filter any words less than 3 characters
+      $words = explode("\n", file_get_contents('https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english.txt'));
+      $words = array_filter($words, function($w) { return strlen($w) >= 3; });
+      // store the filtered list to words.txt
+      $wordsFile = fopen('words.txt', 'w');
+      fwrite($wordsFile, implode("\n", $words));
+      fclose($wordsFile);
+    }
+    
     return $words;
   }
 

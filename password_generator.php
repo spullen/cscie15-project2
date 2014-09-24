@@ -1,14 +1,10 @@
 <?php
-// scrape: https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english.txt
-
 class PasswordGenerator {
   const minNumberOfWords = 3;
   const maxNumberOfWords = 6;
   const specialCharacters = '!@#$%&';
 
   public $errors = array();
-  public $words = array('apple', 'banana', 'cat', 'dog', 'duck', 'horse', 'house', 'car', 'vehicle', 'blue', 'red', 'orange', 'station', 
-                        'computer', 'programmer', 'develop', 'software', 'staple', 'battery', 'water', 'correct', 'wrong', 'right', 'space');
   public $numberOfWords = 3;
   public $separator = '';
   public $includeNumber = false;
@@ -48,13 +44,14 @@ class PasswordGenerator {
   }
 
   public function generate() {
+    $words = $this->getWords();
     $result = array();
 
     // select random subset of words
     for($i = 0; $i < $this->numberOfWords; $i++) {
-      $word = array_rand($this->words);
-      array_push($result, $this->words[$word]);
-      unset($this->words[$word]);
+      $word = array_rand($words);
+      array_push($result, $words[$word]);
+      unset($words[$word]);
     }
 
     // camel case rest of words in result if option selected
@@ -79,6 +76,14 @@ class PasswordGenerator {
     }
 
     return $result;
+  }
+
+  private function getWords() {
+    // get the words
+    $words = explode("\n", file_get_contents('https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english.txt'));
+    // filter any word less than 3 characters
+    $words = array_filter($words, function($w) { return strlen($w) >= 3; });
+    return $words;
   }
 
   // arrays can't be const, so next best thing

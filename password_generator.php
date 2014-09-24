@@ -1,8 +1,4 @@
 <?php
-$wordFilePath = getenv('P2_WORD_FILE_PATH');
-if(!$wordFilePath)
-  $wordFilePath = 'words.txt';
-
 class PasswordGenerator {
   const minNumberOfWords = 3;
   const maxNumberOfWords = 6;
@@ -83,21 +79,9 @@ class PasswordGenerator {
   }
 
   private function getWords() {
-    global $wordFilePath;
-
-    $words = array();
-    if(file_exists($wordFilePath)) {
-      $words = explode("\n", file_get_contents($wordFilePath));
-    } else {
-      // if the words.txt does not exist locally, scrape the words from the web and filter any words less than 3 characters
-      $words = explode("\n", file_get_contents('https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english.txt'));
-      $words = array_filter($words, function($w) { return strlen($w) >= 3; });
-      // store the filtered list to words.txt
-      $wordsFile = fopen($wordFilePath, 'w');
-      fwrite($wordsFile, implode("\n", $words));
-      fclose($wordsFile);
-    }
-    
+    // if the words.txt does not exist locally, scrape the words from the web and filter any words less than 3 characters
+    $words = explode("\n", file_get_contents('https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english.txt'));
+    $words = array_filter($words, function($w) { return strlen($w) >= 3; });
     return $words;
   }
 

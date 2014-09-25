@@ -49,7 +49,7 @@
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="center">
-        <h2 id="result"><?php echo $password; ?></h2>
+        <h2 id="result"><?= $password ?></h2>
       </div>
       <br>
       <form id="password-config" class="form-horizontal" role="form" method="post">

@@ -15,13 +15,17 @@ This application generates a password. The password is built using ordinary word
   - Field is also validated, only allows -_.#
   - Displays an error message on the page if it fails validation
 - Optionally include a number
+  - Randomly chooses a number between 0 and 9
 - Optionally include a special character
+  - Randomly chooses !@#$%&
 - Optionally upper case first letter of password
 - Optionally camel case the password
 - Uses AJAX to retrieve a password from an end-point
   - The logic to generate the password is shared between the main page and the end point via a class
   - Falls back to just posting back to the main page if javascript is disabled
+  - jQuery provided the AJAX support
 - Used an external source to build the word list
+- Used bootstrap to style the page
 
 ## Resources
 - [jQuery](http://jquery.com)

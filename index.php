@@ -120,7 +120,7 @@
         </div>
         <div class="form-group">
           <div class="col-md-offset-2 col-md-6 col-sm-offset-2 col-sm-6">
-            <input type="submit" value="Generate" class="btn btn-primary"> <span id="loading-spinner" style="display: none;"><img src="img/spinner.gif"></span>
+            <input type="submit" value="Generate" class="btn btn-primary"> <span id="loading-spinner" style="display: none;"><img src="img/spinner.gif" alt="Loading..."></span>
           </div>
         </div>
       </form>
@@ -134,7 +134,7 @@
         hard for a computer to crack. The idea comes from <a href="http://xkcd.com/936/" target="_blank">xkcd</a>.
       </p>
       <div class="col-md-offset-2">
-        <a href="http://xkcd.com/936/" target="_blank"><img src="http://imgs.xkcd.com/comics/password_strength.png" /></a>
+        <a href="http://xkcd.com/936/" target="_blank"><img src="http://imgs.xkcd.com/comics/password_strength.png" alt="XKCD | Password Strength"></a>
       </div>
     </div>
   </div>
